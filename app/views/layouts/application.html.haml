@@ -8,8 +8,15 @@
     %meta{:content => "", :name => "description"}
     %meta{:content => "", :name => "author"}
     %link{:href => "../../favicon.ico", :rel => "icon"}
-    %title Social Survey
+    %title
+      -if content_for? :site_title
+        Social Survey -
+        =yield :site_title
+      -else
+        Social Survey
     =stylesheet_link_tag 'application'
+    =javascript_include_tag 'application'
+    =csrf_meta_tag
   %body
     %nav.navbar.navbar-inverse.navbar-fixed-top
       .container
@@ -22,15 +29,24 @@
           %a.navbar-brand{:href => "#"} Project name
         #navbar.collapse.navbar-collapse
           %ul.nav.navbar-nav
-            %li.active
-              %a{:href => "#"} Home
-            %li
-              %a{:href => "#about"} About
-            %li
-              %a{:href => "#contact"} Contact
-        / /.nav-collapse
-    .container{style: "margin-top: 6em;"}
-      =yield
+            -if user_signed_in?
+              %li
+                =link_to 'Sign out', destroy_user_session_path, method: :delete
+            -else
+              %li
+                =link_to 'Sign in', new_user_session_path
+    .container{style: "margin-top: 3em;"}
+      .page_header
+        %h1=yield :page_title
+      -if flash.any?
+        #notifications
+          -flash.each do |name, message|
+            %div{ class: "alert alert-#{flash_name_to_bootstrap_class(name)}"}= message
+      .row
+        .col-md-10
+          =yield
+        .col-md-2
+          =yield :side_bar
     / Placed at the end of the document so the pages load faster
     %script{:src => "https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"}
     %script{:src => "../../dist/js/bootstrap.min.js"}
