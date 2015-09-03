@@ -28,3 +28,9 @@ When /^I click "([^"]+)"$/ do |locator|
   expect(elem).not_to be_nil
   elem.click
 end
+
+Then /^I should see the following (.*) table$/ do |identifier, expected_table|
+  id = "##{identifier.gsub(/\s/, "_")}"
+  actual_table = parse_table(find(id))
+  expected_table(actual_table)
+end
