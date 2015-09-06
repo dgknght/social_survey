@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SurveysController, type: :controller do
+  let (:user) { FactoryGirl.create(:user) }
   let (:survey_attributes) do
     {
       name: 'My first survey',
@@ -9,6 +10,8 @@ RSpec.describe SurveysController, type: :controller do
   end
 
   context 'for an authenticated user' do
+    before(:each) { sign_in user }
+
     describe "get #index" do
       it 'is successful' do
         get :index

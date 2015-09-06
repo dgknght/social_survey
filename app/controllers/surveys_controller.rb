@@ -1,11 +1,13 @@
 class SurveysController < ApplicationController
+  before_filter :authenticate_user!
   respond_to :html
 
   def index
+    @surveys = current_user.surveys
   end
 
   def create
-    @survey = Survey.new(survey_params)
+    @survey = current_user.surveys.new(survey_params)
     flash[:notice] = 'The survey was created successfully.' if @survey.save
     respond_with @survey, location: surveys_path
   end

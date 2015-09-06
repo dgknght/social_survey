@@ -1,4 +1,3 @@
-@wip
 Feature: Create a survey
   As a user
   In order to share my questions with my friends

@@ -1,2 +1,14 @@
-%h1 Surveys#index
-%p Find me in app/views/surveys/index.html.haml
+=content_for :page_title do
+  Surveys
+
+-if @surveys.any?
+  %table#survey_table.table.table-striped
+    %tr
+      %th Name
+    -@surveys.each do |survey|
+      %tr
+        %td= survey.name
+-else
+  %p You don't have any surveys. Create one now!
+.btn-group
+  =link_to 'Create', new_survey_path, class: 'btn btn-primary'
