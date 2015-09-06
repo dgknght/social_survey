@@ -53,6 +53,8 @@ group :development do
   gem 'spring'
 
   gem 'haml-rails', '~> 0.9'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :test do
