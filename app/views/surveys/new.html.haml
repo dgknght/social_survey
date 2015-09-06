@@ -1,0 +1,20 @@
+=content_for :page_title do
+  New survey
+
+-if @survey.errors.any?
+  .alert.alert-warning
+    The survey could not be saved because:
+    %ul
+      -@survey.errors.full_messages.each do |m|
+        %li= m
+
+=form_for(@survey) do |f|
+  .form-group
+    =f.label :name
+    =f.text_field :name, class: 'form-control', autofocus: true
+  .form-group
+    =f.label :description
+    =f.text_area :description, class: 'form-control'
+  .btn-group
+    =f.submit 'Save', class: 'btn btn-primary', title: 'Click here to save the survey'
+    =link_to 'Cancel', surveys_path, class: 'btn btn-default'
