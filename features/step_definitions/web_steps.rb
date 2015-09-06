@@ -30,7 +30,7 @@ When /^I click "([^"]+)"$/ do |locator|
 end
 
 Then /^I should see the following (.*) table$/ do |identifier, expected_table|
-  id = "##{identifier.gsub(/\s/, "_")}"
+  id = "##{identifier.gsub(/\s/, "_")}_table"
   actual_table = parse_table(find(id))
-  expected_table(actual_table)
+  expected_table.diff!(actual_table)
 end
