@@ -1,4 +1,3 @@
-@wip
 Feature: Edit A Survey
   As a user
   In order to update a survey,
@@ -18,7 +17,7 @@ Feature: Edit A Survey
       | My Other Test Survey |
     
     When I click "Edit"
-    Then I should see "Edit Survey" within the page title
+    Then I should see "Edit survey" within the page title
     
     When I fill in "Name" with "My Other Other Survey"
     And I fill in "Description" with "This is my other other surveu :D"

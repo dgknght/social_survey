@@ -5,10 +5,12 @@
   %table#survey_table.table.table-striped
     %tr
       %th Name
+      %th Actions
     -@surveys.each do |survey|
       %tr
         %td= survey.name
+        %td= link_to 'Edit', edit_survey_path(survey), class: 'btn btn-default btn-xs', title: 'Click here to edit this survey.'
 -else
   %p You don't have any surveys. Create one now!
 .btn-group
-  =link_to 'Create', new_survey_path, class: 'btn btn-primary'
+  =link_to 'Create', new_survey_path, class: 'btn btn-primary', title: 'Click here to create a new survey.'

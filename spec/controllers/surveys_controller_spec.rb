@@ -8,6 +8,7 @@ RSpec.describe SurveysController, type: :controller do
       description: 'This is a great survey. You are going to love it.'
     }
   end
+  let (:survey) { FactoryGirl.create(:survey) }
 
   context 'for an authenticated user' do
     before(:each) { sign_in user }
@@ -38,12 +39,25 @@ RSpec.describe SurveysController, type: :controller do
 
     context 'that owns the survey' do
       describe "get #edit" do
-        it 'is successful'
+        it 'is successful' do
+          get :edit, id: survey
+          expect(response).to be_success
+        end
       end
 
       describe "patch #update" do
-        it 'updates the survey'
-        it 'redirects to the survey index page'
+        it 'updates the survey' do
+          original_name = survey.name
+          expect do
+            patch :update, id: survey, survey: survey_attributes
+            survey.reload
+          end.to change(survey, :name).from(original_name).to('My first survey')
+        end
+
+        it 'redirects to the survey index page' do
+          patch :update, id: survey, survey: survey_attributes
+          expect(response).to redirect_to surveys_path
+        end
       end
 
       describe "delete #destroy" do

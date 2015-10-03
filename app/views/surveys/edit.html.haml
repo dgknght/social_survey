@@ -1,2 +1,5 @@
-%h1 Surveys#edit
-%p Find me in app/views/surveys/edit.html.haml
+=content_for :page_title do
+  Edit survey
+
+=form_for(@survey) do |f|
+  =render 'form_fields', f: f
